@@ -21,7 +21,7 @@ import map.Background;
 
 public class MenuState extends State{
 	
-	private Background bg;
+	private final Background bg;
 	private BufferedImage title;
 	private BufferedImage sword;
 	private BufferedImage[] options;
@@ -36,12 +36,11 @@ public class MenuState extends State{
 	
 	public MenuState(GameStateManager gsm, ConcurrentLinkedQueue<Key> keys, Hashtable<String,Integer> keys_mapped, Loader loader, Writter writter){
 		super(gsm, keys, keys_mapped, loader, writter);
-		
+		bg = new Background("/Sprites_400/Menu/room_won.png");
 		try{
-			
+
 			if (RunningFromJar.isRunningFromJar()) {
-				
-				bg = new Background("/Sprites_400/Menu/room_won.png");
+
 				title = ImageIO.read(getClass().getResourceAsStream(("/Sprites_400/Title/main titles/game name.png")));
 				options = new BufferedImage[4];
 				options[0] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/campaign.png"));
@@ -56,7 +55,6 @@ public class MenuState extends State{
 				t2 = new Torch(468,265,loader,true);
 			}
 			else {
-				bg = new Background("resources/Sprites_400/Menu/room_won.png");
 				title = ImageIO.read(new File("resources/Sprites_400/Title/main titles/game name.png"));
 				options = new BufferedImage[4];
 				options[0] = ImageIO.read(new File("resources/Sprites_400/Menu/campaign.png"));

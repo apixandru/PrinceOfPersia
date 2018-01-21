@@ -1108,4 +1108,21 @@ public class Loader {
 			return false;
 		}
 	}
+
+    private static InputStream readResource(String resourcePath) {
+        InputStream stream = Loader.class.getResourceAsStream(resourcePath);
+        if (stream == null) {
+            throw new IllegalArgumentException("Failed to locate " + resourcePath);
+        }
+        return stream;
+    }
+
+    public static BufferedImage loadImage(String imagePath) {
+        try(InputStream stream = readResource(imagePath)) {
+            return ImageIO.read(stream);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Failed to read " + imagePath, e);
+        }
+    }
+
 }

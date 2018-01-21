@@ -2,4 +2,7 @@
 /RemoteSystemsTempFiles/
 .metadata
 .recommenders/
+.idea/
+target/
+*.iml
 

@@ -28,7 +28,7 @@ public class MultiplayerMenuState extends State{
 	
 	private final int YVEL = -5;
 	
-	private MobileBackground bg;
+	private final MobileBackground bg;
 	private BufferedImage title;
 	private Character[] options;
 	
@@ -51,10 +51,10 @@ public class MultiplayerMenuState extends State{
 	public MultiplayerMenuState(GameStateManager gsm, ConcurrentLinkedQueue<Key> keys, Hashtable<String,Integer> keys_mapped, Loader loader, Writter writter){
 		super(gsm, keys, keys_mapped, loader, writter);
 		
+        bg = new MobileBackground("/Sprites_400/Menu/room_won.png");
 		try{
 			if(RunningFromJar.isRunningFromJar()) {
-				
-				bg = new MobileBackground("/Sprites_400/Menu/room_won.png");
+
 				bg.addImage("/Sprites_400/Menu/walls_base.png");
 				bg.addImage("/Sprites_400/Menu/walls.png");
 				bg.addImage("/Sprites_400/Menu/walls.png");
@@ -65,7 +65,6 @@ public class MultiplayerMenuState extends State{
 				menu = TinySound.loadMusic(loader.getFile("Music/cutscene_before_8_9.ogg"));
 			}
 			else {
-				bg = new MobileBackground("resources/Sprites_400/Menu/room_won.png");
 				bg.addImage("resources/Sprites_400/Menu/walls_base.png");
 				bg.addImage("resources/Sprites_400/Menu/walls.png");
 				bg.addImage("resources/Sprites_400/Menu/walls.png");

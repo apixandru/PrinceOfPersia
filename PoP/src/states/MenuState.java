@@ -1,80 +1,57 @@
 package states;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.Hashtable;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-import javax.imageio.ImageIO;
-
 import entities.Torch;
 import framework.Loader;
-import framework.RunningFromJar;
 import framework.Writter;
 import game.Game;
 import input.Key;
 import kuusisto.tinysound.Music;
 import kuusisto.tinysound.Sound;
-import kuusisto.tinysound.TinySound;
 import map.Background;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.util.Hashtable;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static framework.Loader.loadImage;
+import static kuusisto.tinysound.TinySound.loadMusic;
+
 public class MenuState extends State{
-	
-	private final Background bg;
-	private BufferedImage title;
-	private BufferedImage sword;
-	private BufferedImage[] options;
-	
-	private int currentChoice = 0;
-	
-	private Sound moving;
-	private Sound choosing;
-	private Music menu;
-	
-	private Torch t1,t2;
-	
-	public MenuState(GameStateManager gsm, ConcurrentLinkedQueue<Key> keys, Hashtable<String,Integer> keys_mapped, Loader loader, Writter writter){
-		super(gsm, keys, keys_mapped, loader, writter);
-		bg = new Background("/Sprites_400/Menu/room_won.png");
-		try{
 
-			if (RunningFromJar.isRunningFromJar()) {
+    private final Background bg;
+    private final BufferedImage title;
+    private final BufferedImage sword;
+    private final BufferedImage[] options;
 
-				title = ImageIO.read(getClass().getResourceAsStream(("/Sprites_400/Title/main titles/game name.png")));
-				options = new BufferedImage[4];
-				options[0] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/campaign.png"));
-				options[1] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/versus.png"));
-				options[2] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/settings.png"));
-				options[3] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/exit.png"));
-				sword = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/sword.png"));
-				moving = loader.getSound("sword moving");
-				choosing = loader.getSound("sword vs sword");
-				menu = TinySound.loadMusic(loader.getFile("Music/intro_theme.ogg"));
-				t1 = new Torch(232,265,loader,true);
-				t2 = new Torch(468,265,loader,true);
-			}
-			else {
-				title = ImageIO.read(new File("resources/Sprites_400/Title/main titles/game name.png"));
-				options = new BufferedImage[4];
-				options[0] = ImageIO.read(new File("resources/Sprites_400/Menu/campaign.png"));
-				options[1] = ImageIO.read(new File("resources/Sprites_400/Menu/versus.png"));
-				options[2] = ImageIO.read(new File("resources/Sprites_400/Menu/settings.png"));
-				options[3] = ImageIO.read(new File("resources/Sprites_400/Menu/exit.png"));
-				sword = ImageIO.read(new File("resources/Sprites_400/Menu/sword.png"));
-				moving = loader.getSound("sword moving");
-				choosing = loader.getSound("sword vs sword");
-				menu = TinySound.loadMusic(new File("resources/Music/intro_theme.ogg"));
-				t1 = new Torch(232,265,loader,true);
-				t2 = new Torch(468,265,loader,true);
-			}
-			
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-	}
+    private int currentChoice = 0;
 
-	@Override
+    private final Sound moving;
+    private final Sound choosing;
+    private final Music menu;
+
+    private final Torch t1;
+    private final Torch t2;
+
+    public MenuState(GameStateManager gsm, ConcurrentLinkedQueue<Key> keys, Hashtable<String, Integer> keysMapped, Loader loader, Writter writter) {
+        super(gsm, keys, keysMapped, loader, writter);
+        bg = new Background("/Sprites_400/Menu/room_won.png");
+        title = loadImage("/Sprites_400/Title/main titles/game name.png");
+        options = new BufferedImage[]{
+                loadImage("/Sprites_400/Menu/campaign.png"),
+                loadImage("/Sprites_400/Menu/versus.png"),
+                loadImage("/Sprites_400/Menu/settings.png"),
+                loadImage("/Sprites_400/Menu/exit.png")
+        };
+        sword = loadImage("/Sprites_400/Menu/sword.png");
+        menu = loadMusic("/Music/intro_theme.ogg");
+        moving = loader.getSound("sword moving");
+        choosing = loader.getSound("sword vs sword");
+        t1 = new Torch(232, 265, loader, true);
+        t2 = new Torch(468, 265, loader, true);
+    }
+
+    @Override
 	public void init() {
 		menu.play(true);
 	}

@@ -1,16 +1,5 @@
 package states;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 import data.Level;
 import data.Room;
 import data.Square;
@@ -27,12 +16,23 @@ import entities.Opener;
 import entities.Player;
 import entities.SpikeFloor;
 import framework.Loader;
-import framework.RunningFromJar;
 import framework.Writter;
 import game.Game;
 import input.Key;
 import kuusisto.tinysound.Music;
-import kuusisto.tinysound.TinySound;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static kuusisto.tinysound.TinySound.loadMusic;
 
 public class LevelState extends State{
 	
@@ -55,12 +55,12 @@ public class LevelState extends State{
 	
 	private List<LooseFloor> falling_floor;
 	private List<Door> doors;
-	
-	private Music win_song;
-	private Music death_song;
-	private Music credits_song;
-	private Music end_song;
-	
+
+    private final Music win_song;
+    private final Music death_song;
+    private final Music credits_song;
+    private final Music end_song;
+
 	private boolean over;
 	private boolean credits;
 	private long counter;
@@ -73,20 +73,12 @@ public class LevelState extends State{
 
 		this.start = start;
 		backgroundColor = Color.BLACK;
-		
-		if (RunningFromJar.isRunningFromJar()) {
-			win_song = TinySound.loadMusic(loader.getFile("Music/guard_death_and_obtaining_the_sword.ogg"));
-			death_song = TinySound.loadMusic(loader.getFile("Music/fight_death.ogg"));
-			end_song = TinySound.loadMusic(loader.getFile("Music/killed_Jaffar.ogg"));
-			credits_song = TinySound.loadMusic(loader.getFile("Music/won.ogg"));
-		}
-		else {
-			win_song = TinySound.loadMusic(new File("resources/Music/guard_death_and_obtaining_the_sword.ogg"));
-			death_song = TinySound.loadMusic(new File("resources/Music/fight_death.ogg"));
-			end_song = TinySound.loadMusic(new File("resources/Music/killed_Jaffar.ogg"));
-			credits_song = TinySound.loadMusic(new File("resources/Music/won.ogg"));
-		}
-	}
+
+        win_song = loadMusic("/Music/guard_death_and_obtaining_the_sword.ogg");
+        death_song = loadMusic("/Music/fight_death.ogg");
+        end_song = loadMusic("/Music/killed_Jaffar.ogg");
+        credits_song = loadMusic("/Music/won.ogg");
+    }
 
 	@Override
 	public void init() {
@@ -2147,9 +2139,8 @@ public class LevelState extends State{
 									System.out.println("Caso 3 - NO NEED FOR FIX");
 								}
 							}
-							
-							//Si no hay ninguna esquina -> se añade una derecha en la casilla actual y una izquierda en la casilla de la derecha
-							
+
+							//Si no hay ninguna esquina -> se aÃ±ade una derecha en la casilla actual y una izquierda en la casilla de la derecha
 						} else if(newCorner != null && newCorner.getTypeOfEntity().contains("left")){
 							//Si hay esquina con nombre left -> se quita de la casilla actual y se mete una left en la casilla derecha salvo que haya pared
 							roomToOperate.deleteEntityBackground(newCorner, roomToOperate.getSquare(loose.getRow(), loose.getCol()));

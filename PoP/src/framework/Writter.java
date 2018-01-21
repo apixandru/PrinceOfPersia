@@ -1,17 +1,15 @@
 package framework;
 
+import data.Text;
+
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-
-import data.Text;
+import static framework.Loader.loadImage;
 
 public class Writter {
 	
-	private static BufferedImage font;
+    private static BufferedImage font;
 	public final static int WIDTH = 16;
 	public final static int HEIGTH = 16;
 	private static ArrayList<String> equivalences;
@@ -29,18 +27,8 @@ public class Writter {
 		equivalences.add(" ");
 		equivalences.add("(");
 		equivalences.add(")");
-		try {
-			if (RunningFromJar.isRunningFromJar()) {
-				font = ImageIO.read(getClass().getResourceAsStream("/fonts/font.png"));
-			}
-			else {
-				font = ImageIO.read(new File("resources/fonts/font.png"));
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        font = loadImage("/fonts/font.png");
+    }
 	
 	public static Text createText(String text, int x, int y){
 		text =  text.toUpperCase();

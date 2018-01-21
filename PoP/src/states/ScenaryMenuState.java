@@ -1,26 +1,23 @@
 package states;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Hashtable;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-import javax.imageio.ImageIO;
-
 import entities.Character;
 import entities.Enemy;
 import entities.Player;
 import framework.Loader;
-import framework.RunningFromJar;
 import framework.Writter;
 import game.Game;
 import input.Key;
 import kuusisto.tinysound.Music;
 import kuusisto.tinysound.Sound;
-import kuusisto.tinysound.TinySound;
 import map.MobileBackground;
+
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.util.Hashtable;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static framework.Loader.loadImage;
+import static kuusisto.tinysound.TinySound.loadMusic;
 
 public class ScenaryMenuState extends State{
 	
@@ -38,22 +35,13 @@ public class ScenaryMenuState extends State{
 	
 	private int player1;
 	private int player2;
-	
-	public ScenaryMenuState(GameStateManager gsm, ConcurrentLinkedQueue<Key> keys, Hashtable<String,Integer> keys_mapped, Loader loader, Writter writter){
+
+	public ScenaryMenuState(GameStateManager gsm, ConcurrentLinkedQueue<Key> keys, Hashtable<String, Integer> keys_mapped, Loader loader, Writter writter) {
 		super(gsm, keys, keys_mapped, loader, writter);
-		
-			
+
 		moving = loader.getSound("sword moving");
 		choosing = loader.getSound("sword vs sword");
-		
-		if (RunningFromJar.isRunningFromJar()) {
-			menu = TinySound.loadMusic(loader.getFile("Music/cutscene_before_8_9.ogg"));
-		}
-		else {
-			menu = TinySound.loadMusic(new File("resources/Music/cutscene_before_8_9.ogg"));
-//			menu = TinySound.loadMusic(new File("resources/Music/Batman.ogg"));
-		}
-	
+		menu = loadMusic("/Music/cutscene_before_8_9.ogg");
 	}
 
 	@Override
@@ -66,40 +54,18 @@ public class ScenaryMenuState extends State{
 		characters[0].manageSword("idle", 0, true);
 		characters[1].setCurrentAnimation("sword idle_left", 7);
 		characters[1].manageSword("sword idle",0,true);
-		
-		if (RunningFromJar.isRunningFromJar()) {
-			bg = new MobileBackground("/Sprites_400/Menu/Scenaries/test1.png",0,0);
-			bg.setDrawArrows(true);
-			bg.addImage("/Sprites_400/Menu/Scenaries/test2.png");
-		}
-		else {
-			bg = new MobileBackground("resources/Sprites_400/Menu/Scenaries/test1.png",0,0);
-			bg.setDrawArrows(true);
-			bg.addImage("resources/Sprites_400/Menu/Scenaries/test2.png");
-		}
-		
+
+		bg = new MobileBackground("/Sprites_400/Menu/Scenaries/test1.png", 0, 0);
+		bg.setDrawArrows(true);
+		bg.addImage("/Sprites_400/Menu/Scenaries/test2.png");
+
 		options = new BufferedImage[2];
 		fights = new BufferedImage[2];
-		try {
-			
-			if (RunningFromJar.isRunningFromJar()) {
-				
-				options[0] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/fight.png"));
-				options[1] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/back.png"));
-				fights[0] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/fight.png"));
-				fights[1] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/no_fight.png"));
-				sword = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/sword.png"));
-			}
-			else {
-				options[0] = ImageIO.read(new File("resources/Sprites_400/Menu/fight.png"));
-				options[1] = ImageIO.read(new File("resources/Sprites_400/Menu/back.png"));
-				fights[0] = ImageIO.read(new File("resources/Sprites_400/Menu/fight.png"));
-				fights[1] = ImageIO.read(new File("resources/Sprites_400/Menu/no_fight.png"));
-				sword = ImageIO.read(new File("resources/Sprites_400/Menu/sword.png"));
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		options[0] = loadImage("/Sprites_400/Menu/fight.png");
+		options[1] = loadImage("/Sprites_400/Menu/back.png");
+		fights[0] = loadImage("/Sprites_400/Menu/fight.png");
+		fights[1] = loadImage("/Sprites_400/Menu/no_fight.png");
+		sword = loadImage("/Sprites_400/Menu/sword.png");
 		currentChoice = 0;
 	}
 

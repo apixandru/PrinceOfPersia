@@ -1,15 +1,14 @@
 package entities;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.io.File;
-import java.util.Random;
-
 import framework.Loader;
-import framework.RunningFromJar;
 import game.Game;
 import kuusisto.tinysound.Music;
-import kuusisto.tinysound.TinySound;
+
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.Random;
+
+import static kuusisto.tinysound.TinySound.loadMusic;
 
 public class Enemy extends Character {
 	
@@ -25,7 +24,6 @@ public class Enemy extends Character {
 	
 	private final double BASE_BLOCK_PERCENTAJE = 0.3;
 	private final double BASE_COUNTER_PERCENTAJE = 0.2;
-	
 	
 	private EnemyState currentState;
 	private int difficulty;
@@ -46,7 +44,7 @@ public class Enemy extends Character {
 	private long counterMove;
 	private long counterAttack;
 	
-	private Music princeWins;
+    private final Music princeWins;
 
 	public Enemy(int x, int y, Loader loader, String orientation, String colour, int health, int difficulty) {
 		super(x, y - 20, loader, orientation);
@@ -90,13 +88,8 @@ public class Enemy extends Character {
 		}
 		this.typeOfEntity = "Enemy";
 		
-		if(RunningFromJar.isRunningFromJar()) {
-			princeWins = TinySound.loadMusic(loader.getFile("Music/guard_death_and_obtaining_the_sword.ogg"));
-		}
-		else {
-			princeWins = TinySound.loadMusic(new File("resources/Music/guard_death_and_obtaining_the_sword.ogg"));
-		}
-	}
+        princeWins = loadMusic("/Music/guard_death_and_obtaining_the_sword.ogg");
+    }
 	
 	@Override
 	public void update(long elapsedTime) {

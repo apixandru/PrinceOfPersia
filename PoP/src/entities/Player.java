@@ -2,15 +2,14 @@ package entities;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.io.File;
 import java.util.Hashtable;
 
 import framework.Loader;
-import framework.RunningFromJar;
 import game.Game;
 import input.Key;
 import kuusisto.tinysound.Music;
-import kuusisto.tinysound.TinySound;
+
+import static kuusisto.tinysound.TinySound.loadMusic;
 
 public class Player extends Character {
 
@@ -84,7 +83,7 @@ public class Player extends Character {
 	private boolean goingToAttack;
 	private boolean goingToCounter;
 	
-	private Music drinking_song;
+    private final Music drinking_song;
 	
 	private int doorx;
 	private int doory;
@@ -172,12 +171,7 @@ public class Player extends Character {
 		
 		this.typeOfEntity = "Player";
 		
-		if (RunningFromJar.isRunningFromJar()) {
-			drinking_song = TinySound.loadMusic(loader.getFile("Music/potion.ogg"));
-		}
-		else {
-			drinking_song = TinySound.loadMusic(new File("resources/Music/potion.ogg"));
-		}
+        drinking_song = loadMusic("/Music/potion.ogg");
 	}
 	
 	@Override
@@ -3270,7 +3264,7 @@ public class Player extends Character {
 	}
 	
 	/**
-	 * @param canDrink the canPickSword to set
+	 * @param canPickSword the canPickSword to set
 	 */
 	public void setCanPickSword(boolean canPickSword) {
 		this.canPickSword = canPickSword;

@@ -1,36 +1,33 @@
 package states;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Hashtable;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-import javax.imageio.ImageIO;
-
 import entities.Character;
 import entities.Enemy;
 import entities.Player;
 import entities.Torch;
 import framework.Loader;
-import framework.RunningFromJar;
 import framework.Writter;
 import game.Game;
 import input.Key;
 import kuusisto.tinysound.Music;
 import kuusisto.tinysound.Sound;
-import kuusisto.tinysound.TinySound;
 import map.MobileBackground;
+
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.util.Hashtable;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static framework.Loader.loadImage;
+import static kuusisto.tinysound.TinySound.loadMusic;
 
 public class MultiplayerMenuState extends State{
 	
 	
 	private final int YVEL = -5;
-	
-	private final MobileBackground bg;
-	private BufferedImage title;
-	private Character[] options;
+
+    private final MobileBackground bg;
+    private final BufferedImage title;
+    private Character[] options;
 	
 	private int currentChoiceP1, currentChoiceP2;
 	
@@ -39,7 +36,7 @@ public class MultiplayerMenuState extends State{
 	
 	private Sound moving;
 	private Sound choosing;
-	private Music menu;
+    private Music menu;
 	
 	private Torch t1,t2;
 	BufferedImage p1,p2,sword;
@@ -47,54 +44,29 @@ public class MultiplayerMenuState extends State{
 	private int offset;
 	private boolean initialAnimation;
 	private int yvel;
-	
-	public MultiplayerMenuState(GameStateManager gsm, ConcurrentLinkedQueue<Key> keys, Hashtable<String,Integer> keys_mapped, Loader loader, Writter writter){
-		super(gsm, keys, keys_mapped, loader, writter);
-		
-        bg = new MobileBackground("/Sprites_400/Menu/room_won.png");
-		try{
-			if(RunningFromJar.isRunningFromJar()) {
 
-				bg.addImage("/Sprites_400/Menu/walls_base.png");
-				bg.addImage("/Sprites_400/Menu/walls.png");
-				bg.addImage("/Sprites_400/Menu/walls.png");
-				bg.addImage("/Sprites_400/Menu/walls.png");
-				bg.addImage("/Sprites_400/Menu/wall_dungeon.png");
-				bg.addImage("/Sprites_400/Menu/Scenaries/test1.png");
-				title = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Title/main titles/game name.png"));
-				menu = TinySound.loadMusic(loader.getFile("Music/cutscene_before_8_9.ogg"));
-			}
-			else {
-				bg.addImage("resources/Sprites_400/Menu/walls_base.png");
-				bg.addImage("resources/Sprites_400/Menu/walls.png");
-				bg.addImage("resources/Sprites_400/Menu/walls.png");
-				bg.addImage("resources/Sprites_400/Menu/walls.png");
-				bg.addImage("resources/Sprites_400/Menu/wall_dungeon.png");
-				bg.addImage("resources/Sprites_400/Menu/Scenaries/test1.png");
-				title = ImageIO.read(new File("resources/Sprites_400/Title/main titles/game name.png"));
-				menu = TinySound.loadMusic(new File("resources/Music/cutscene_before_8_9.ogg"));
-//				menu = TinySound.loadMusic(new File("resources/Music/Batman.ogg"));
-			}
-			
-			
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-	}
+    public MultiplayerMenuState(GameStateManager gsm, ConcurrentLinkedQueue<Key> keys, Hashtable<String, Integer> keys_mapped, Loader loader, Writter writter) {
+        super(gsm, keys, keys_mapped, loader, writter);
+
+        bg = new MobileBackground("/Sprites_400/Menu/room_won.png");
+        bg.addImage("/Sprites_400/Menu/walls_base.png");
+        bg.addImage("/Sprites_400/Menu/walls.png");
+        bg.addImage("/Sprites_400/Menu/walls.png");
+        bg.addImage("/Sprites_400/Menu/walls.png");
+        bg.addImage("/Sprites_400/Menu/wall_dungeon.png");
+        bg.addImage("/Sprites_400/Menu/Scenaries/test1.png");
+        title = loadImage("/Sprites_400/Title/main titles/game name.png");
+        menu = loadMusic("/Music/cutscene_before_8_9.ogg");
+//        menu = loadMusic("/Music/Batman.ogg");
+    }
 
 	@Override
 	public void init() {
 		offset = 0;
 		t1 = new Torch(232,265,loader,true);
 		t2 = new Torch(468,265,loader,true);
-		
-		if (RunningFromJar.isRunningFromJar()) {
-			menu = TinySound.loadMusic(loader.getFile("Music/find_mirror_and_find_shadow.ogg"));
-		}
-		else {
-			menu = TinySound.loadMusic(new File("resources/Music/find_mirror_and_find_shadow.ogg"));
-		}
-		
+        menu = loadMusic("/Music/find_mirror_and_find_shadow.ogg");
+
 		menu.play(false);
 		bg.setCurrentBackground(0);
 		bg.setDrawArrows(false);
@@ -142,31 +114,13 @@ public class MultiplayerMenuState extends State{
 				initialAnimation = false;
 				bg.setVel(0, 0);
 				menuOptions = new BufferedImage[2];
-				try {
-					
-					if (RunningFromJar.isRunningFromJar()) {
-						menuOptions[0] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/no_next.png"));
-						menuOptions[1] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/back.png"));
-						p1 = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/p1.png")); 
-						p2 = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/p2.png")); 
-						sword = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/sword.png"));
-						menu.stop();
-						menu = TinySound.loadMusic(loader.getFile("Music/cutscene_before_8_9.ogg"));
-					}
-					else {
-						menuOptions[0] = ImageIO.read(new File("resources/Sprites_400/Menu/no_next.png"));
-						menuOptions[1] = ImageIO.read(new File("resources/Sprites_400/Menu/back.png"));
-						p1 = ImageIO.read(new File("resources/Sprites_400/Menu/p1.png")); 
-						p2 = ImageIO.read(new File("resources/Sprites_400/Menu/p2.png")); 
-						sword = ImageIO.read(new File("resources/Sprites_400/Menu/sword.png"));
-						menu.stop();
-						menu = TinySound.loadMusic(new File("resources/Music/cutscene_before_8_9.ogg"));
-						//menu = TinySound.loadMusic(new File("resources/Music/Batman.ogg"));
-					}
-					menu.play(true);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+                menuOptions[0] = loadImage("/Sprites_400/Menu/no_next.png");
+                menuOptions[1] = loadImage("/Sprites_400/Menu/back.png");
+                p1 = loadImage("/Sprites_400/Menu/p1.png");
+                p2 = loadImage("/Sprites_400/Menu/p2.png");
+                sword = loadImage("/Sprites_400/Menu/sword.png");
+                menu.stop();
+                menu = loadMusic("/Music/cutscene_before_8_9.ogg");
 			}
 		} else{
 			options[0].update(elapsedTime);
@@ -244,16 +198,7 @@ public class MultiplayerMenuState extends State{
 				p.isEnemySaw(true);
 				if(guard == 1){
 					currentChoiceP1 = 2;
-					try {
-						if(RunningFromJar.isRunningFromJar()) {
-							menuOptions[0] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/next.png"));
-						}
-						else {
-							menuOptions[0] = ImageIO.read(new File("resources/Sprites_400/Menu/next.png"));
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+                    menuOptions[0] = loadImage("/Sprites_400/Menu/next.png");
 				}
 			}
 		} else if(currentChoiceP1 == 1){
@@ -267,17 +212,7 @@ public class MultiplayerMenuState extends State{
 				options[1].manageSword("sword idle",0,true);
 				if(prince == 1){
 					currentChoiceP1 = 2;
-					try {
-						if (RunningFromJar.isRunningFromJar()) {
-							menuOptions[0] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/next.png"));
-						}
-						else {
-							menuOptions[0] = ImageIO.read(new File("resources/Sprites_400/Menu/next.png"));
-						}
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+                    menuOptions[0] = loadImage("/Sprites_400/Menu/next.png");
 				}
 			}
 		} else if(currentChoiceP1 == 2){
@@ -312,16 +247,7 @@ public class MultiplayerMenuState extends State{
 				p.isEnemySaw(true);
 				if(guard == 0){
 					currentChoiceP1 = 2;
-					try {
-						if (RunningFromJar.isRunningFromJar()) {
-							menuOptions[0] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/next.png"));
-						}
-						else {
-							menuOptions[0] = ImageIO.read(new File("resources/Sprites_400/Menu/next.png"));
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+                    menuOptions[0] = loadImage("/Sprites_400/Menu/next.png");
 				}
 			}
 		} else if(currentChoiceP2 == 1){
@@ -335,16 +261,7 @@ public class MultiplayerMenuState extends State{
 				options[1].manageSword("sword idle",0,true);
 				if(prince == 0){
 					currentChoiceP1 = 2;
-					try {
-						if (RunningFromJar.isRunningFromJar()) {
-							menuOptions[0] = ImageIO.read(getClass().getResourceAsStream("/Sprites_400/Menu/next.png"));
-						}
-						else {
-							menuOptions[0] = ImageIO.read(new File("resources/Sprites_400/Menu/next.png"));
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+                    menuOptions[0] = loadImage("/Sprites_400/Menu/next.png");
 				}
 			}
 		} 

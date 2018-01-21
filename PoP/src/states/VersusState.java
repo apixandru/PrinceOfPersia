@@ -1,13 +1,5 @@
 package states;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 import data.Level;
 import data.Room;
 import data.Text;
@@ -16,12 +8,19 @@ import entities.Entity;
 import entities.MPEnemy;
 import entities.MPPrince;
 import framework.Loader;
-import framework.RunningFromJar;
 import framework.Writter;
 import game.Game;
 import input.Key;
 import kuusisto.tinysound.Music;
-import kuusisto.tinysound.TinySound;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static kuusisto.tinysound.TinySound.loadMusic;
 
 public class VersusState extends State{
 	
@@ -84,15 +83,9 @@ public class VersusState extends State{
 		currentRoom.addCharacter(enemy);
 		over = false;
 		paused = false;
-		
-		if (RunningFromJar.isRunningFromJar()) {
-			prince_wins = TinySound.loadMusic(loader.getFile("Music/guard_death_and_obtaining_the_sword.ogg"));
-			guard_wins = TinySound.loadMusic(loader.getFile("Music/fight_death.ogg"));
-		}
-		else {
-			prince_wins = TinySound.loadMusic(new File("resources/Music/guard_death_and_obtaining_the_sword.ogg"));
-			guard_wins = TinySound.loadMusic(new File("resources/Music/fight_death.ogg"));
-		}
+
+		prince_wins = loadMusic("/Music/guard_death_and_obtaining_the_sword.ogg");
+		guard_wins = loadMusic("/Music/fight_death.ogg");
 //		enemy.setPlayer(true,prince);
 		
 		texts = new ArrayList<Text>();

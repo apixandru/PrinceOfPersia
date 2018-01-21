@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.apixandru</groupId>
+    <artifactId>prince-of-persia</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apixandru.external</groupId>
+            <artifactId>tinysound</artifactId>
+            <version>1.1.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/PoP/lib/tinysound-1.1.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.apixandru.external</groupId>
+            <artifactId>tritonus</artifactId>
+            <version>share</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/PoP/lib/tritonus_share.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.apixandru.external</groupId>
+            <artifactId>vorbis-spi</artifactId>
+            <version>1.0.3</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/PoP/lib/vorbisspi1.0.3.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.apixandru.external</groupId>
+            <artifactId>jorbis</artifactId>
+            <version>0.0.17</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/PoP/lib/jorbis-0.0.17.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>PoP/resources</directory>
+            </resource>
+        </resources>
+        <sourceDirectory>PoP/src</sourceDirectory>
+    </build>
+
+</project>

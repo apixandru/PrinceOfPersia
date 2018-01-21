@@ -9,7 +9,7 @@ public class GameStarter {
 	public static final int FPS = 60;
 	
 	public static void main(String[] args){
-		SplashScreen s = new SplashScreen("resources/Sprites_400/Splash/splash.png");
+		SplashScreen s = new SplashScreen("PoP/resources/Sprites_400/Splash/splash.png");
 		s.showSplashScreen(true);
 		
 		/* Loads every sprite in the game */

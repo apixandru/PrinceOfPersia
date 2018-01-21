@@ -17,8 +17,8 @@ import states.State;
 public class Test extends State {
 
 	private final long FRAME_TIME = 1000/14;
-	private final String testPrincessPath = "resources/Sprites_400/Cutscenes/Princess/winning/";
-	private final String testDastanPath = "resources/Sprites_400/Dastan/";
+	private final String testPrincessPath = "PoP/resources/Sprites_400/Cutscenes/Princess/winning/";
+	private final String testDastanPath = "PoP/resources/Sprites_400/Dastan/";
 	
 	private Hashtable<String, Animation> animations;
 	private Animation animation;

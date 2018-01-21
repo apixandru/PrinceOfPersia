@@ -72,24 +72,15 @@ public class Loader {
 	public void loadAllSprites() {
 		
 		if (isRunningFromJar()) {
-			
 			loadSounds("Sounds/");
-			System.out.println("Sounds loaded.");
-			
 			loadAnimations("Sprites_400/Dungeon/");
-			System.out.println("Dungeon resources added.");
-			
 			loadAnimations("Sprites_400/Objects/");
-			System.out.println("Objects resources added.");
-			
 			loadAnimations("Sprites_400/Characters/");
-			System.out.println("Characters resources added.");
-		}
-		else {
-			loadSounds("resources/Sounds/");
-			loadAnimations("resources/Sprites_400/Dungeon/");
-			loadAnimations("resources/Sprites_400/Objects/");
-			loadAnimations("resources/Sprites_400/Characters/");
+		} else {
+			loadSounds("PoP/resources/Sounds/");
+			loadAnimations("PoP/resources/Sprites_400/Dungeon/");
+			loadAnimations("PoP/resources/Sprites_400/Objects/");
+			loadAnimations("PoP/resources/Sprites_400/Characters/");
 		}
 	}
 	
@@ -590,7 +581,7 @@ public class Loader {
 			levelPath = "Levels/level" + numLevel + ".txt";
 		}
 		else {
-			levelPath = "resources/Levels/level" + numLevel + ".txt";
+			levelPath = "PoP/resources/Levels/level" + numLevel + ".txt";
 		}
 		
 		/* Reads the files that describes the level */

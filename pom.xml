@@ -22,25 +22,9 @@
             <systemPath>${basedir}/PoP/lib/tinysound-1.1.1.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>org.apixandru.external</groupId>
-            <artifactId>tritonus</artifactId>
-            <version>share</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/PoP/lib/tritonus_share.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>org.apixandru.external</groupId>
-            <artifactId>vorbis-spi</artifactId>
-            <version>1.0.3</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/PoP/lib/vorbisspi1.0.3.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>org.apixandru.external</groupId>
-            <artifactId>jorbis</artifactId>
-            <version>0.0.17</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/PoP/lib/jorbis-0.0.17.jar</systemPath>
+            <groupId>com.googlecode.soundlibs</groupId>
+            <artifactId>vorbisspi</artifactId>
+            <version>1.0.3.3</version>
         </dependency>
     </dependencies>
 

@@ -1,8 +1,8 @@
 package entities;
 
-import java.awt.Graphics;
-
 import framework.Loader;
+
+import java.awt.Graphics;
 
 public class Life extends Entity{
 	
@@ -28,11 +28,6 @@ public class Life extends Entity{
 	
 	public boolean isVisible(){
 		return this.visible;
-	}
-	
-	@Override
-	public Entity copy() {
-		return null;
 	}
 
 }

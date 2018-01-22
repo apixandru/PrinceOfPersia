@@ -1,8 +1,8 @@
 package entities;
 
-import java.awt.Graphics;
-
 import framework.Loader;
+
+import java.awt.Graphics;
 
 public class FloorPanel extends Entity{
 	
@@ -39,11 +39,6 @@ public class FloorPanel extends Entity{
 		if(!invisible){
 			super.drawSelf(g);
 		}
-	}
-
-	@Override
-	public Entity copy() {
-		return null;
 	}
 
 }

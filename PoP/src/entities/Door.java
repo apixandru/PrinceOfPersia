@@ -1,9 +1,9 @@
 package entities;
 
-import java.awt.Color;
-
 import framework.Loader;
 import kuusisto.tinysound.Sound;
+
+import java.awt.Color;
 
 public class Door extends Entity{
 	
@@ -140,11 +140,6 @@ public class Door extends Entity{
 		}
 	}
 
-	@Override
-	public Entity copy() {
-		return null;
-	}
-	
 	public void openDoor(){
 		int frame = 0;
 		switch(currentAnimation.getId()){

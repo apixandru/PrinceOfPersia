@@ -1,9 +1,9 @@
 package entities;
 
+import framework.Loader;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
-import framework.Loader;
 
 public class Spike extends Entity {
 	
@@ -62,8 +62,4 @@ public class Spike extends Entity {
 		
 	}
 
-	@Override
-	public Entity copy() {
-		return null;
-	}
 }

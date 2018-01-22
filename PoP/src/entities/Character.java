@@ -1,11 +1,9 @@
 package entities;
 
+import framework.Loader;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.Hashtable;
-
-import framework.Animation;
-import framework.Loader;
 
 public class Character extends Entity {
 
@@ -456,16 +454,6 @@ public class Character extends Entity {
 		this.freeFall = freeFall;
 	}
 
-	@Override
-	public Entity copy() {
-		Character newCharacter = new Character(x, y, loader, orientation);
-		
-		Hashtable<String, Animation> newAnimations = this.getAnimations();
-		
-		
-		return newCharacter;
-	}
-	
 	@Override
 	public void drawSelf(Graphics g){
 		if(sword!=null){

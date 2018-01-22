@@ -1,14 +1,13 @@
 package entities;
 
+import framework.Animation;
+import framework.Loader;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Hashtable;
-
-import framework.Animation;
-import framework.Loader;
-import kuusisto.tinysound.Sound;
 
 public abstract class Entity {
 	
@@ -56,17 +55,10 @@ public abstract class Entity {
 		}
 	}
 	
-	/**
-	 * Draws the entity's actual frame of current animation
-	 * @param g
-	 */
 	public void drawSelf(Graphics g) {
-		
-		/* Draws the entity */
 		BufferedImage img = currentAnimation.getImage();
-		g.drawImage(img, x - currentAnimation.getImage().getWidth(),
-				y - currentAnimation.getImage().getHeight(), null);
-		
+		g.drawImage(img, x - img.getWidth(), y - img.getHeight(), null);
+
 		/* Draws the entity's bounding box */
 //		if (boundingBox != null) {
 //			g.setColor(boundingBoxColor);
@@ -118,9 +110,6 @@ public abstract class Entity {
 				y - currentAnimation.getImage().getHeight(), width, height);
 	}
 	
-	/**
-	 * @return the bounding box of the entity
-	 */
 	public Rectangle getBoundingBox() {
 		return boundingBox;
 	}
@@ -150,51 +139,34 @@ public abstract class Entity {
 		return intersects;
 	}
 	
-	/**
-	 * @return the x
-	 */
 	public int getX() {
 		return x;
 	}
-	/**
-	 * @param x the x to set
-	 */
+
 	public void setX(int x) {
 		this.x = x;
 	}
-	/**
-	 * @return the y
-	 */
+
 	public int getY() {
 		return y;
 	}
-	/**
-	 * @param y the y to set
-	 */
+
 	public void setY(int y) {
 		this.y = y;
 	}
-	/**
-	 * @return the animations
-	 */
+
 	public Hashtable<String, Animation> getAnimations() {
 		return animations;
 	}
-	/**
-	 * @param animations the animations to set
-	 */
+
 	public void setAnimations(Hashtable<String, Animation> animations) {
 		this.animations = animations;
 	}
-	/**
-	 * @return the currentAnimation
-	 */
+
 	public Animation getCurrentAnimation() {
 		return currentAnimation;
 	}
-	/**
-	 * @param currentAnimation the currentAnimation to set
-	 */
+
 	public void setCurrentAnimation(String animationName, int frameDuration) {
 		this.currentAnimation = animations.get(animationName);
 		currentAnimation.reset();
@@ -205,16 +177,10 @@ public abstract class Entity {
 		return typeOfEntity;
 	}
 
-	/**
-	 * @return the boundingBoxColor
-	 */
 	public Color getBoundingBoxColor() {
 		return boundingBoxColor;
 	}
 
-	/**
-	 * @param boundingBoxColor the boundingBoxColor to set
-	 */
 	public void setBoundingBoxColor(Color boundingBoxColor) {
 		this.boundingBoxColor = boundingBoxColor;
 	}
@@ -250,7 +216,7 @@ public abstract class Entity {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @return the center coords of the entity
 	 */
 	public int[] getCenter() {
@@ -269,6 +235,5 @@ public abstract class Entity {
 	public int xDistanceEntity(Entity e){
 		return Math.abs(this.getXCentre() - e.getXCentre());
 	}
-	
-	public abstract Entity copy();
+
 }

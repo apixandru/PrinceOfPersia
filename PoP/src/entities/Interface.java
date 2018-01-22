@@ -9,10 +9,5 @@ public class Interface extends Entity{
 		animations = loader.getAnimations("interface");
 		this.setCurrentAnimation("interfaz", FRAME_DURATION);
 	}
-	
-	@Override
-	public Entity copy() {
-		return null;
-	}
 
 }

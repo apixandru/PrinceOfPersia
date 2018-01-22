@@ -1,10 +1,9 @@
 package entities;
 
-import java.awt.Color;
+import framework.Loader;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
-import framework.Loader;
 
 public class LooseFloor extends Entity {
 	
@@ -106,11 +105,6 @@ public class LooseFloor extends Entity {
 		
 	}
 
-	@Override
-	public Entity copy() {
-		return null;
-	}
-	
 	public int getRow(){
 		return this.row;
 	}

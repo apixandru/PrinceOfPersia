@@ -14,9 +14,4 @@ public class Torch extends Entity {
 		currentAnimation.setRandomCurrentFrame();
 	}
 
-	@Override
-	public Entity copy() {
-		return null;
-	}
-	
 }

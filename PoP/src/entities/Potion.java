@@ -11,9 +11,4 @@ public class Potion extends Entity {
 		currentAnimation.setRandomCurrentFrame();
 	}
 
-	@Override
-	public Entity copy() {
-		return null;
-	}
-	
 }

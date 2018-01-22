@@ -1,10 +1,10 @@
 package entities;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
-
 import framework.Loader;
 import kuusisto.tinysound.Sound;
+
+import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class SpikeFloor extends Entity {
 	
@@ -95,11 +95,6 @@ public class SpikeFloor extends Entity {
 		
 	}
 
-	@Override
-	public Entity copy() {
-		return null;
-	}
-
 	public Spike getSpike_background() {
 		return spike_background;
 	}
@@ -115,6 +110,5 @@ public class SpikeFloor extends Entity {
 	public void setSpike_foreground(Spike spike_foreground) {
 		this.spike_foreground = spike_foreground;
 	}
-	
 	
 }

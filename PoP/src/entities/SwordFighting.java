@@ -24,8 +24,4 @@ public class SwordFighting extends Entity{
 		this.getCurrentAnimation().setCurrentFrame(frame);
 	}
 
-	@Override
-	public Entity copy() {
-		return null;
-	}
 }

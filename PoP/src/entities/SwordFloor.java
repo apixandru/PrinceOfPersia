@@ -14,8 +14,4 @@ public class SwordFloor extends Entity{
 				currentAnimation.getImage().getHeight());
 	}
 
-	@Override
-	public Entity copy() {
-		return null;
-	}
 }

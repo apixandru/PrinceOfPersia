@@ -1,10 +1,10 @@
 package entities;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
-
 import framework.Loader;
 import kuusisto.tinysound.Sound;
+
+import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class Opener extends Entity {
 	
@@ -64,11 +64,6 @@ public class Opener extends Entity {
 		
 	}
 
-	@Override
-	public Entity copy() {
-		return null;
-	}
-	
 	public void openDoor(Player p){
 		door.openDoor();
 		if(!isPressed){

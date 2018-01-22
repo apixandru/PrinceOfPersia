@@ -10,8 +10,4 @@ public class DoorFrame extends Entity{
 		currentAnimation = animations.get(frame_type);
 	}
 
-	@Override
-	public Entity copy() {
-		return null;
-	}
 }

@@ -1,10 +1,8 @@
 package entities;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
 import framework.Loader;
+
+import java.awt.Color;
 
 public class Pillar extends Entity{
 
@@ -40,13 +38,8 @@ public class Pillar extends Entity{
 		
 		return new int[]{xx,yy};
 	}
-	
-	@Override
-	public Entity copy() {
-		return null;
-	}
-	
-//	@Override	
+
+//	@Override
 //	public void drawSelf(Graphics g) {
 //			
 //		/* Draws the entity */

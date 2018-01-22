@@ -1,10 +1,9 @@
 package entities;
 
+import framework.Loader;
+
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
-import framework.Loader;
 
 public class Corner extends Entity{
 	
@@ -82,11 +81,6 @@ public class Corner extends Entity{
 	}
 	
 	@Override
-	public Entity copy() {
-		return null;
-	}
-
-	@Override	
 	public void drawSelf(Graphics g) {
 		
 		/* Draws the entity */

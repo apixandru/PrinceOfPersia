@@ -2365,13 +2365,15 @@ public class LevelState extends State{
 	public void checkPlayerSquare(){
 		int[] playerCenter = player.getCenter();
 		int[] playerSquare = player.getSquare(playerCenter[0], playerCenter[1]);
-		
+
+		int playerSquareRow = playerSquare[0];
+		int playerSquareCol = playerSquare[1];
+//		System.out.println(Arrays.toString(playerCenter) + " / " + Arrays.toString(playerSquare));
+
 		//System.out.println("Casilla " + playerSquare[0] + " - " +  playerSquare[1]);
 		
-		if (!(playerSquare[0] > 0 && playerSquare[1] >= 0 &&
-				playerSquare[0] <= 3 && playerSquare[1] <= 9)) {
-			
-			if(playerSquare[0] <= 0){
+		if (!(playerSquareRow > 0 && playerSquareCol >= 0 && playerSquareRow <= 3 && playerSquareCol <= 9)) {
+			if(playerSquareRow <= 0){
 
 				/* Arriba */
 				if(player.isClimbing()){
@@ -2383,7 +2385,7 @@ public class LevelState extends State{
 						actualCorner = player.getCornerToClimbDown();
 					}
 					int yDistanceCorner = actualCorner.getCenter()[1] - player.getY();
-					List<Entity> entities = newRoom.getSquare(3, playerSquare[1]).getBackground();
+					List<Entity> entities = newRoom.getSquare(3, playerSquareCol).getBackground();
 					for(Entity e : entities){
 						if(e.getTypeOfEntity().startsWith("Corner")){
 							System.out.println("found corner arriba");
@@ -2398,17 +2400,17 @@ public class LevelState extends State{
 					currentRoom.deleteCharacter(player);
 					enemy = (Enemy)newRoom.getGuard();
 					newRoom.addCharacter(player);
-					if(enemy != null){
-						if(!enemy.isDead()){
-							enemy.setPlayer(true, player);
-							if(player.hasSword()){
-								player.isEnemySaw(true);
-							}
-						}
-					}
-					currentRoom = newRoom;
+                    if(enemy != null){
+                        if(!enemy.isDead()){
+                            enemy.setPlayer(true, player);
+                            if(player.hasSword()){
+                                player.isEnemySaw(true);
+                            }
+                        }
+                    }
+                    currentRoom = newRoom;
 				}
-			} else if(playerSquare[0] > 3){
+			} else if(playerSquareRow > 3){
 
 				/* Abajo */
 				Room newRoom = currentLevel.getRoom(currentRoom.getRow() + 2, currentRoom.getCol() + 1);
@@ -2419,7 +2421,7 @@ public class LevelState extends State{
 						actualCorner = player.getCornerToClimb();
 					}
 					int yDistanceCorner = actualCorner.getCenter()[1] - player.getY();
-					List<Entity> entities = newRoom.getSquare(0, playerSquare[1]).getBackground();
+					List<Entity> entities = newRoom.getSquare(0, playerSquareCol).getBackground();
 					for(Entity e : entities){
 						if(e.getTypeOfEntity().startsWith("Corner")){
 							System.out.println("found corner abajo");
@@ -2431,71 +2433,51 @@ public class LevelState extends State{
 						}
 					}
 					currentRoom.deleteCharacter(player);
-					if(enemy != null){
-						enemy.setPlayer(false, player);
-					}
-					enemy = (Enemy)newRoom.getGuard();
-					newRoom.addCharacter(player);
-					if(enemy != null){
-						if(!enemy.isDead()){
-							enemy.setPlayer(true, player);
-							if(player.hasSword()){
-								player.isEnemySaw(true);
-							}
-						}
-					}
-					currentRoom = newRoom;
+                    setupEnemyInRoom(newRoom);
+                    currentRoom = newRoom;
 				} else{
 					currentRoom.deleteCharacter(player);
 					newRoom.addCharacter(player);
 					player.setY(40);
 					currentRoom = newRoom;
 				}
-			} else if(playerSquare[1] < 0){
+			} else if(playerSquareCol < 0){
 
 				/* Izquierda */
 				currentRoom.deleteCharacter(player);
 				Room newRoom = currentLevel.getRoom(currentRoom.getRow() + 1, currentRoom.getCol());
-				if(enemy != null){
-					enemy.setPlayer(false, player);
-				}
-				enemy = (Enemy)newRoom.getGuard();
-				newRoom.addCharacter(player);
-				if(enemy != null){
-					if(!enemy.isDead()){
-						enemy.setPlayer(true, player);
-						if(player.hasSword()){
-							player.isEnemySaw(true);
-						}
-					}
-				}
-				player.setX(620);
+                setupEnemyInRoom(newRoom);
+                player.setX(640);
 				currentRoom = newRoom;
-			} else if(playerSquare[1] > 9){
+			} else if(playerSquareCol > 9){
 
 				/* Derecha */
 				currentRoom.deleteCharacter(player);
 				Room newRoom = currentLevel.getRoom(currentRoom.getRow() + 1, currentRoom.getCol() + 2);
-				if(enemy != null){
-					enemy.setPlayer(false, player);
-				}
-				enemy = (Enemy)newRoom.getGuard();
-				newRoom.addCharacter(player);
-				if(enemy != null){
-					if(!enemy.isDead()){
-						enemy.setPlayer(true, player);
-						if(player.hasSword()){
-							player.isEnemySaw(true);
-						}
-					}
-				}
-				player.setX(20);
+                setupEnemyInRoom(newRoom);
+                player.setX(20);
 				currentRoom = newRoom;
 			}
 		}
 	}
-	
-	public void checkLoosesToShake(){
+
+    private void setupEnemyInRoom(Room newRoom) {
+        if(enemy != null){
+            enemy.setPlayer(false, player);
+        }
+        enemy = (Enemy) newRoom.getGuard();
+        newRoom.addCharacter(player);
+        if(enemy != null){
+            if(!enemy.isDead()){
+                enemy.setPlayer(true, player);
+                if(player.hasSword()){
+                    player.isEnemySaw(true);
+                }
+            }
+        }
+    }
+
+    public void checkLoosesToShake(){
 		int row = player.getSquare()[0];
 		if(row < 4){
 			for(int i = 0; i < 10; i++){

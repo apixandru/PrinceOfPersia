@@ -200,22 +200,23 @@ public abstract class Entity {
 		return new int[]{i, j};
 	}
 	
-	/**
-	 * 
-	 * @return square coords in the room corresponding to the
-	 * current x,y coords of the entity
-	 */
-	public int[] getSquare(int xx, int yy) {
-		int i = yy - 6;
-		
-		if (i <= 0) i = 0;
-		else i = (i / 126) + 1;
-		
-		int j = xx / 64;
-		return new int[]{i, j};
-	}
-	
-	/**
+    public int[] getSquare(int x, int y) {
+        int blockY = y - 6;
+
+        if (blockY <= 0) {
+            blockY = 0;
+        } else {
+            blockY = (blockY / 126) + 1;
+        }
+
+        int blockX = x / 64;
+        if (x < -20) { // more precise measure?
+            blockX = -1;
+        }
+        return new int[]{blockY, blockX};
+    }
+
+    /**
 	 *
 	 * @return the center coords of the entity
 	 */
